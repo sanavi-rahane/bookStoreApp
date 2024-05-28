@@ -1,5 +1,6 @@
 import React from 'react'
-import {BrowserRouter,Routes,Route} from 'react-router-dom'
+import {BrowserRouter,Routes,Route, Navigate} from 'react-router-dom'
+import  { Toaster } from 'react-hot-toast';
 
 import Index from './Pages/Index'
 import Courses from './Pages/Courses'
@@ -8,8 +9,11 @@ import Footer from './components/Footer'
 import Contact from './Pages/Contact'
 import About from './Pages/About'
 import Signup from './components/Signup'
+import { useAuth } from './context/AuthProvider';
 
 function App() {
+  const [authUser,setAuthUser]=useAuth();
+  console.log(authUser);
   return (
     <>
    
@@ -19,13 +23,15 @@ function App() {
     {/* <Navbar/> */}
       <Routes>
         <Route path='/' element={<Index/>}/>
-        <Route path='/course' element={<Courses/>}/>
+        <Route path='/course' element={authUser?<Courses/>:<Navigate to='/signup'/>}/>
         <Route path='/contact' element={<Contact/>}/>
         <Route path='/about' element={<About/>}/>
         <Route path='/signup' element={<Signup/>}/>
       </Routes>
+      <Toaster />
       {/* <Footer/> */}
     </BrowserRouter>
+
     </div>
     </>
   )
