@@ -39,6 +39,10 @@ function Course() {
               Back
             </button>
           </Link>
+
+
+
+
         </div>
         <div className="mt-12 grid grid-cols-1 md:grid-cols-4">
           {book.map((item) => (
